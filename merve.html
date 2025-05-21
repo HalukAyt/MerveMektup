@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dünyalar Güzelime Sürpriz</title>
   <style>
     body {
@@ -67,22 +67,30 @@
   </style>
 </head>
 <body>
-<audio id="bgMusic" loop>
-  <source src="love-theme.mp3" type="audio/mpeg">
-  Tarayıcınız müziği desteklemiyor.
-</audio>
 
-<button onclick="document.getElementById('bgMusic').play()" style="margin-top: 20px; font-size: 5vw; padding: 10px 20px; border-radius: 10px;">
-  🎵 Müziği Başlat
-</button>
+  <!-- Müzik dosyası (index.html ile aynı klasörde: love-theme.mp3) -->
+  <audio id="bgMusic" loop>
+    <source src="love-theme.mp3" type="audio/mpeg">
+    Tarayıcınız müziği desteklemiyor.
+  </audio>
 
+  <!-- Müzik başlatma butonu -->
+  <button onclick="document.getElementById('bgMusic').play()">
+    🎵 Müziği Başlat
+  </button>
 
+  <!-- Görsel -->
   <img src="haluk-merve.jpg" alt="Haluk ve Merve" />
+
   <h1>Dünyalar Güzelime Sürpriz Gizli Mesajım💌</h1>
   <p>Doğru kelimeyi bilirsen Haluk'tan sana bir sürpriz mektup var!</p>
+
   <input type="text" id="guess" placeholder="Gizli kelimeyi yaz...">
   <button onclick="checkWord()">Göster</button>
-  <p class="hint">İPUCU: "Yanında yesem daha da güzel olan şey..." 🍕❤️</p>
+
+  <p class="hint">
+    İPUCU: "Yanında yesem daha da güzel olan şey..." 🍕❤️
+  </p>
 
   <div class="letter" id="loveLetter">
     <h2>💖 Sevgili Merve 💖</h2>
@@ -107,6 +115,14 @@
         alert("Hmm... Yanlış kelime. İpucu: En çok neyi yemeyi seversin?");
       }
     }
+
+    // Sayfa yüklendiğinde otomatik müzik oynatma denemesi (masaüstü için)
+    window.addEventListener('load', () => {
+      const audio = document.getElementById("bgMusic");
+      audio.play().catch(() => {
+        console.log("Müzik çalma otomatik başlatılamadı (mobilde engellenmiş olabilir).");
+      });
+    });
   </script>
 </body>
 </html>
