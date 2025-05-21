@@ -64,18 +64,27 @@
       border-radius: 14px;
       margin-top: 5vw;
     }
+
+    #music-button {
+      font-size: 5vw;
+      margin-top: 20px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      background-color: #ffd6d6;
+      border: none;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Müzik dosyası (index.html ile aynı klasörde: love-theme.mp3) -->
+  <!-- Müzik (index.html ile aynı klasörde: love-theme.mp3) -->
   <audio id="bgMusic" loop>
     <source src="love-theme.mp3" type="audio/mpeg">
     Tarayıcınız müziği desteklemiyor.
   </audio>
 
   <!-- Müzik başlatma butonu -->
-  <button onclick="document.getElementById('bgMusic').play()">
+  <button id="music-button" onclick="startMusic()">
     🎵 Müziği Başlat
   </button>
 
@@ -106,6 +115,7 @@
 
   <script>
     const secretWord = "pizza";
+
     function checkWord() {
       const userGuess = document.getElementById("guess").value.trim().toLowerCase();
       const letter = document.getElementById("loveLetter");
@@ -116,13 +126,26 @@
       }
     }
 
-    // Sayfa yüklendiğinde otomatik müzik oynatma denemesi (masaüstü için)
+    function startMusic() {
+      const audio = document.getElementById("bgMusic");
+      audio.play().then(() => {
+        document.getElementById("music-button").innerText = "🎶 Müzik Çalıyor";
+        document.getElementById("music-button").disabled = true;
+      }).catch(err => {
+        alert("Müzik çalınamadı. Lütfen tekrar dokun!");
+        console.log(err);
+      });
+    }
+
+    // Masaüstünde otomatik oynatma denemesi
     window.addEventListener('load', () => {
       const audio = document.getElementById("bgMusic");
       audio.play().catch(() => {
-        console.log("Müzik çalma otomatik başlatılamadı (mobilde engellenmiş olabilir).");
+        // Mobilde engellenebilir — sessiz geç
+        console.log("Mobil otomatik çalmaya izin vermedi.");
       });
     });
   </script>
+
 </body>
 </html>
